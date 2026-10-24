@@ -1,0 +1,81 @@
+/* glass-grid: launcher a griglia, vetro, colori da wallust */
+@import "~/.config/hypr/rofi/0-shared-fonts.rasi"
+@import "~/.config/hypr/rofi/wallust/colors-rofi.rasi"
+
+configuration {
+  modi: "drun";
+  show-icons: true;
+  drun-display-format: "{name}";
+}
+
+* {
+  vetro:   rgba(18, 18, 26, 55%);
+  vetro-2: rgba(255, 255, 255, 8%);
+  bordo:   rgba(255, 255, 255, 14%);
+  accento: @selected-normal-background;
+  background-color: transparent;
+  text-color: @normal-foreground;
+}
+
+window {
+  location: center;
+  anchor: center;
+  width: 900px;
+  padding: 20px;
+  border: 1px;
+  border-color: @bordo;
+  border-radius: 14px;
+  background-color: @vetro;
+}
+
+mainbox {
+  spacing: 16px;
+  children: [ "inputbar", "listview" ];
+}
+
+inputbar {
+  padding: 10px 14px;
+  border: 1px;
+  border-color: @accento;
+  border-radius: 10px;
+  background-color: @vetro-2;
+  children: [ "entry" ];
+}
+
+entry {
+  placeholder: "Cerca applicazioni";
+  placeholder-color: rgba(255, 255, 255, 45%);
+}
+
+listview {
+  columns: 6;
+  lines: 4;
+  fixed-height: true;
+  spacing: 10px;
+  cycle: true;
+  scrollbar: false;
+}
+
+element {
+  orientation: vertical;
+  padding: 14px 6px;
+  spacing: 8px;
+  border: 1px;
+  border-color: transparent;
+  border-radius: 10px;
+}
+
+element selected.normal {
+  border-color: @accento;
+  background-color: @vetro-2;
+}
+
+element-icon {
+  size: 48px;
+  horizontal-align: 0.5;
+}
+
+element-text {
+  horizontal-align: 0.5;
+  vertical-align: 0.5;
+}

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+INIZIO_GIORNO=8
+
+INIZIO_NOTTE=18
+
+while true; do
+        ora=$(date +%-H)
+
+        stato_attuale=$(< ~/.local/state/wallmode)
+
+
+        if ((ora>=INIZIO_GIORNO && ora < INIZIO_NOTTE)); then
+                voluta=light	
+        else
+                voluta=dark
+
+        fi
+
+        echo $voluta
+
+
+        if [ "$stato_attuale" != "$voluta" ]; then
+                 ~/.local/bin/wallmode "$voluta"
+        fi
+        sleep 300
+done 
+
+

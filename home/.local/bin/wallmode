@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Uso: wallmode dark | light | restore | status
+DST="$HOME/Pictures/wallpapers-mode"
+STATE="$HOME/.local/state/wallmode"
+AUTO="$HOME/.config/hypr/UserScripts/WallpaperAutoChange.sh"
+
+mode="${1:-status}"
+if [ "$mode" = "restore" ]; then
+    mode=$(cat "$STATE" 2>/dev/null || echo dark)
+fi
+case "$mode" in
+    dark|light) ;;
+    status) echo "Modalità attuale: $(cat "$STATE" 2>/dev/null || echo nessuna)"; exit 0 ;;
+    *) echo "Uso: wallmode dark|light|restore|status"; exit 1 ;;
+esac
+
+if [ -z "$(ls -A "$DST/$mode" 2>/dev/null)" ]; then
+    echo "Nessuno sfondo in $DST/$mode: lancia prima wallsort.py"
+    exit 1
+fi
+
+mkdir -p "$(dirname "$STATE")"
+echo "$mode" > "$STATE"
+pkill -f WallpaperAutoChange.sh 2>/dev/null
+setsid -f "$AUTO" "$DST/$mode" >/dev/null 2>&1
+command -v notify-send >/dev/null && notify-send "Sfondi" "Rotazione: $mode" -u low
+echo "Rotazione sfondi: $mode"

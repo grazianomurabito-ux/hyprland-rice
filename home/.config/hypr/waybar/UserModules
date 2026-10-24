@@ -1,0 +1,10 @@
+//* ---- 💫 https://github.com/LinuxBeginnings 💫 ---- *//
+/* Waybar Modules Extras */
+{
+"custom/apps": {
+    "format": "Apps",
+    "tooltip": true,
+    "tooltip-format": "Applicazioni",
+    "on-click": "$HOME/.local/bin/applauncher"
+}
+}
