@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Copia nel repository i file personalizzati del rice.
-# I percorsi sono relativi alla home e vengono ricreati dentro home/.
+# Copies the customized rice files into this repository.
+# Paths are relative to $HOME and are recreated under home/.
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")" && pwd)"
 
@@ -25,7 +25,6 @@ FILES=(
   .local/bin/wallsort.py
   .local/bin/wallauto
   .local/bin/applauncher
-  .local/bin/spritefetch
   .bashrc
 )
 
@@ -34,12 +33,12 @@ for f in "${FILES[@]}"; do
   if [ -e "$f" ]; then
     mkdir -p "$REPO/home/$(dirname "$f")"
     cp "$f" "$REPO/home/$f"
-    echo "copiato  $f"
+    echo "copied   $f"
   else
-    echo "manca    $f"
+    echo "missing  $f"
   fi
 done
 
 echo
-echo "Controllo dati sensibili (da verificare prima del commit):"
-grep -rn -i -E "api[_-]?key|token|secret|passw" "$REPO/home" || echo "  nessuna corrispondenza"
+echo "Sensitive data check (review before committing):"
+grep -rn -i -E "api[_-]?key|token|secret|passw" "$REPO/home" || echo "  no matches"
